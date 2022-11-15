@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unsitoa.c                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlima <vlima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/04 16:51:19 by vlima             #+#    #+#             */
-/*   Updated: 2022/11/15 14:12:25 by vlima            ###   ########.fr       */
+/*   Created: 2022/11/15 11:23:08 by vlima             #+#    #+#             */
+/*   Updated: 2022/11/15 17:30:26 by vlima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_lenret(unsigned long n, char *str)
-{
-	if (n >= 10)
-		str = ft_lenret(n / 10, str);
-	*str++ = (n % 10) + '0';
-	*str = 0;
-	return (str);
-}
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-char	*ft_itoa(unsigned long n)
-{
-	char	str[15];
+# include <stdarg.h>
+# include <unistd.h>
 
-	ft_lenret(n, str);
-	return (ft_substr(str, 0, (ft_strlen(str))));
-}
+int		ft_printf(const char *format, ...);
+int		ft_print_uns(unsigned int n);
+int		ft_print_ptr(unsigned long long ptr);
+int		ft_print_hex(unsigned int numero, const char variavel);
+
+
+#endif

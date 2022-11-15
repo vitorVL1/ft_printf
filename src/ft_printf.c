@@ -6,14 +6,14 @@
 /*   By: vlima <vlima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 20:17:52 by vitorvl           #+#    #+#             */
-/*   Updated: 2022/11/15 14:16:12 by vlima            ###   ########.fr       */
+/*   Updated: 2022/11/15 17:32:59 by vlima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include	"ft_printf.h"
 #include	"libft.h"
 
-int	ft_printnbr(int nbr)
+int	ft_print_nbr(int nbr)
 {
 	char	*str;
 	int		len;
@@ -23,13 +23,13 @@ int	ft_printnbr(int nbr)
 	return (len);
 }
 
-int	ft_printchar(char c)
+int	ft_print_char(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
 
-int	ft_printstr(char *str)
+int	ft_print_str(char *str)
 {
 	int	i;
 
@@ -47,25 +47,27 @@ int	ft_printstr(char *str)
 	return (i);
 }
 
+
+
 int	ft_formats(va_list args, const char format)
 {
 	int	lent_print;
 
 	lent_print = 0;
 	if (format == 'c')
-		lent_print += ft_printchar(va_arg(args, int));
+		lent_print += ft_print_char(va_arg(args, int));
 	else if (format == 's')
-		lent_print += ft_printstr(va_arg(args, char *));
+		lent_print += ft_print_str(va_arg(args, char *));
 	else if (format == 'p')
 		lent_print += ft_print_ptr(va_arg(args, unsigned long long));
 	else if (format == 'd' || format == 'i' )
-		lent_print += ft_printnbr(va_arg(args, int));
+		lent_print += ft_print_nbr(va_arg(args, int));
 	else if (format == 'u')
-		lent_print += ft_print_unsigned(va_arg(args, unsigned int));
+		lent_print += ft_print_uns(va_arg(args, unsigned int));
 	else if (format == 'x' || format == 'X')
 		lent_print += ft_print_hex(va_arg(args, unsigned int), format);
 	else if (format == '%')
-		lent_print += ft_printchar('%');
+		lent_print += ft_print_char('%');
 	return (lent_print);
 }
 
