@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitorvl <vitorvl@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vlima <vlima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 20:17:52 by vitorvl           #+#    #+#             */
-/*   Updated: 2022/11/14 21:22:07 by vitorvl          ###   ########.fr       */
+/*   Updated: 2022/11/15 14:16:12 by vlima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-int ft_printchar(char c)
+#include	"libft.h"
+
+int	ft_printnbr(int nbr)
+{
+	char	*str;
+	int		len;
+
+	str = ft_itoa(nbr);
+	len = ft_putstr(str);
+	return (len);
+}
+
+int	ft_printchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
@@ -46,33 +58,35 @@ int	ft_formats(va_list args, const char format)
 		lent_print += ft_printstr(va_arg(args, char *));
 	else if (format == 'p')
 		lent_print += ft_print_ptr(va_arg(args, unsigned long long));
-	else if (format == 'd' || format == 'i')
+	else if (format == 'd' || format == 'i' )
 		lent_print += ft_printnbr(va_arg(args, int));
 	else if (format == 'u')
 		lent_print += ft_print_unsigned(va_arg(args, unsigned int));
 	else if (format == 'x' || format == 'X')
 		lent_print += ft_print_hex(va_arg(args, unsigned int), format);
 	else if (format == '%')
-		lent_print += ft_printpercent();
+		lent_print += ft_printchar('%');
 	return (lent_print);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	int lent_print;
-	int i;
+	int		lent_print;
+	int		i;
+	va_list	args;
+
 	i = 0;
-	va_list args;
+
 	va_start(args, str);
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == %)
+		if (str[i] == '%')
 		{
-			
+			lent_print += ft_formats(str, args);
 		}
-		else 
+		else
 			lent_print += ft_printchar(str[i]);
 		i++;
 	}
 	va_end(args);
-}d
+}

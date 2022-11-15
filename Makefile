@@ -1,37 +1,63 @@
-SRCS =	ft_isalnum.c ft_isprint.c ft_memcmp.c ft_strlcat.c ft_strncmp.c ft_atoi.c ft_isalpha.c\
-		ft_memcpy.c   ft_strchr.c  ft_strlcpy.c ft_strnstr.c ft_tolower.c ft_bzero.c\
-		ft_isascii.c  ft_memmove.c  ft_strdup.c  ft_strlen.c  ft_strrchr.c ft_substr.c ft_itoa.c\
-		ft_toupper.c ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c ft_strjoin.c ft_strtrim.c\
-		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strmapi.c ft_split.c ft_striteri.c\
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vlima <vlima@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/15 14:13:45 by vlima             #+#    #+#              #
+#    Updated: 2022/11/15 15:13:42 by vlima            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-OBJS = $(SRCS:.c=.o)
+NAME		= libftprintf.a
+INCLUDE		= include
+LIBFT		= libft
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -I
+RM			= rm -f
+AR			= ar rcs
 
-BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstdelone.c ft_lstlast.c ft_lstclear.c\
-		ft_lstnew.c ft_lstsize.c ft_lstmap.c ft_lstiter.c\
 
-BONUS_OBJS = $(BONUS:.c=.o)
+SRC_FILES	=	ft_printf ft_printf_tools ft_printf_ptr ft_unsigneditoa ft_printf_hexa
 
-cc = gcc
-RM = rm -f
-CFLAGS	= -Wall -Wextra -Werror
 
-NAME = libft.a
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-all : $(NAME)
 
-$(NAME): $(OBJS)
-		ar rcs $(NAME) $(OBJS)
+OBJF		=	.cache_exists
+
+all:		$(NAME)
+
+$(NAME):	$(OBJ)
+			@make -C $(LIBFT)
+			@cp libft/libft.a .
+			@mv libft.a $(NAME)
+			@$(AR) $(NAME) $(OBJ)
+
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+
+			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
 clean:
-			@$(RM) $(OBJS)
+			@$(RM) -rf $(OBJ_DIR)
+			@make clean -C $(LIBFT)
+
 
 fclean:		clean
-			@$(RM) $(NAME)
-			@$(RM) -r $(DIR_OBJS)
+			@$(RM) -f $(NAME)
+			@$(RM) -f $(LIBFT)/libft.a
 
-re:			fclean $(NAME)
+re:			fclean all	
 
-bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+norm:
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re norm
