@@ -6,9 +6,10 @@
 #    By: vlima <vlima@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 14:13:45 by vlima             #+#    #+#              #
-#    Updated: 2022/11/15 15:13:42 by vlima            ###   ########.fr        #
+#    Updated: 2022/11/21 12:13:44 by vlima            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME		= libftprintf.a
 INCLUDE		= include
@@ -21,7 +22,7 @@ RM			= rm -f
 AR			= ar rcs
 
 
-SRC_FILES	=	ft_printf ft_printf_tools ft_printf_ptr ft_unsigneditoa ft_printf_hexa
+SRC_FILES	=	ft_printf ft_print_ptr ft_print_uns ft_print_hex ft_print_tools
 
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -55,7 +56,7 @@ fclean:		clean
 			@$(RM) -f $(NAME)
 			@$(RM) -f $(LIBFT)/libft.a
 
-re:			fclean all	
+re:			fclean all
 
 norm:
 			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true

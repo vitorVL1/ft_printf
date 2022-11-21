@@ -1,42 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_uns.c                                     :+:      :+:    :+:   */
+/*   ft_print_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlima <vlima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/04 16:51:19 by vlima             #+#    #+#             */
-/*   Updated: 2022/11/21 12:28:05 by vlima            ###   ########.fr       */
+/*   Created: 2022/11/17 13:33:26 by vlima             #+#    #+#             */
+/*   Updated: 2022/11/21 14:55:43 by vlima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
+#include "libft.h"
+#include <stdlib.h>
 
-char	*ft_ulenret(unsigned long long n, char *str)
+int	ft_print_str(char *str)
 {
-	if (n >= 10)
-		str = ft_ulenret(n / 10, str);
-	*str++ = (n % 10) + '0';
-	*str = 0;
-	return (str);
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (i);
 }
 
-char	*ft_uitoa(unsigned long long n)
+int	ft_print_nbr(int nbr)
 {
-	char	str[15];
-
-	ft_ulenret(n, str);
-	return (ft_substr(str, 0, (ft_strlen(str))));
-}
-
-int	ft_print_uns(unsigned int n)
-{
+	char	*str;
 	int		len;
-	char	*num;
 
 	len = 0;
-	num = ft_uitoa(n);
-	len = ft_print_str(num);
+	str = ft_itoa(nbr);
+	len = ft_print_str(str);
 	return (len);
+}
+
+int	ft_print_char(int c)
+{
+	write(1, &c, 1);
+	return (1);
 }
