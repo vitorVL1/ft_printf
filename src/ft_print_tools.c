@@ -6,7 +6,7 @@
 /*   By: vlima <vlima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:33:26 by vlima             #+#    #+#             */
-/*   Updated: 2022/11/21 14:55:43 by vlima            ###   ########.fr       */
+/*   Updated: 2022/11/23 14:33:07 by vlima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_print_nbr(int nbr)
 	len = 0;
 	str = ft_itoa(nbr);
 	len = ft_print_str(str);
+	free(str);
 	return (len);
 }
 

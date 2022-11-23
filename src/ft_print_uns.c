@@ -6,7 +6,7 @@
 /*   By: vlima <vlima@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:51:19 by vlima             #+#    #+#             */
-/*   Updated: 2022/11/21 12:28:05 by vlima            ###   ########.fr       */
+/*   Updated: 2022/11/23 14:33:21 by vlima            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int	ft_print_uns(unsigned int n)
 	len = 0;
 	num = ft_uitoa(n);
 	len = ft_print_str(num);
+	free(num);
 	return (len);
 }
